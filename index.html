@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBD Sayyid Maksiliyanus Arridwany</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .code-container {
+            background-color: #252526;
+            border: 1px solid #3c3c3c;
+            border-radius: 8px;
+            padding: 25px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+        #terminal {
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; font-style: italic; }
+        .function { color: #dcdcaa; }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #d4d4d4;
+            animation: blink 0.6s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="code-container">
+    <div id="terminal"></div><span class="cursor" id="cursor"></span>
+</div>
+
+<script>
+    const teksLengkap = [
+        { teks: "// Initializing Special Day System...\n", kelas: "comment" },
+        { teks: "const ", kelas: "keyword" }, { teks: "date = ", kelas: "" }, { teks: "\"September 08\";\n", kelas: "string" },
+        { teks: "const ", kelas: "keyword" }, { teks: "boyfriend = ", kelas: "" }, { teks: "\"Sayyid Maksiliyanus Arridwany\";\n\n", kelas: "string" },
+        { teks: "function ", kelas: "keyword" }, { teks: "celebrateBirthday() {\n", kelas: "function" },
+        { teks: "  if ", kelas: "keyword" }, { teks: "(date === ", kelas: "" }, { teks: "\"September 08\"", kelas: "string" }, { teks: ") {\n", kelas: "" },
+        { teks: "    return ", kelas: "keyword" }, { teks: "\"Happy Birthday, Sayyid! ❤️ May this new chapter bring you endless blessings, joy, and success in everything you do. Thank you for being the most wonderful part of my life. I love you so much! ✨\";\n", kelas: "string" },
+        { teks: "  }\n", kelas: "" },
+        { teks: "}\n\n", kelas: "" },
+        { teks: "// Executing script...\n", kelas: "comment" },
+        { teks: "console.log(celebrateBirthday());", kelas: "function" }
+    ];
+
+    const terminal = document.getElementById('terminal');
+    let urutanTeks = 0;
+    let urutanKarakter = 0;
+
+    function ketikVideo() {
+        if (urutanTeks < teksLengkap.length) {
+            const bagianAktif = teksLengkap[urutanTeks];
+            
+            if (urutanKarakter === 0) {
+                const spanBaru = document.createElement('span');
+                spanBaru.className = bagianAktif.kelas;
+                spanBaru.id = 'span-' + urutanTeks;
+                terminal.appendChild(spanBaru);
+            }
+            
+            const spanTarget = document.getElementById('span-' + urutanTeks);
+            spanTarget.textContent += bagianAktif.teks.charAt(urutanKarakter);
+            
+            urutanKarakter++;
+            
+            if (urutanKarakter < bagianAktif.teks.length) {
+                setTimeout(ketikVideo, 30);
+            } else {
+                urutanKarakter = 0;
+                urutanTeks++;
+                setTimeout(ketikVideo, 150);
+            }
+        } else {
+            document.getElementById('cursor').style.display = 'none';
+        }
+    }
+
+    window.onload = () => {
+        setTimeout(ketikVideo, 1000);
+    };
+</script>
+
+</body>
+</html>
+

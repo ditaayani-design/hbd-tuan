@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HBD Sayyid Maksiliyanus Arridwany</title>
+    <title>HBD Sayyid Maksiliyanus Arridwan</title>
     <style>
         body {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
             font-family: 'Courier New', Courier, monospace;
             padding: 20px;
             display: flex;
@@ -17,95 +17,106 @@
             margin: 0;
             overflow: hidden;
         }
-        .code-container {
-            background-color: #252526;
-            border: 1px solid #3c3c3c;
-            border-radius: 8px;
+
+        /* Kontainer bergaya layar terminal/video ketik */
+        .terminal-box {
+            width: 100%;
+            max-width: 600px;
+            background-color: #16161a;
             padding: 25px;
-            width: 90%;
-            max-width: 550px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #2c2c35;
+            min-height: 200px;
+            position: relative;
         }
+
         #terminal {
             white-space: pre-wrap;
-            line-height: 1.5;
-            font-size: 14px;
+            word-wrap: break-word;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            display: inline;
         }
-        .keyword { color: #569cd6; }
-        .string { color: #ce9178; }
-        .comment { color: #6a9955; font-style: italic; }
-        .function { color: #dcdcaa; }
+
+        /* Warna teks khusus untuk variasi ucapan */
+        .teks-putih { color: #ffffff; font-weight: bold; }
+        .teks-hijau { color: #4caf50; }
+        .teks-kuning { color: #ffeb3b; }
+
+        /* Gaya kursor ketik vertikal */
         .cursor {
             display: inline-block;
             width: 8px;
-            height: 15px;
-            background-color: #d4d4d4;
-            animation: blink 0.6s infinite;
+            height: 19px;
+            background-color: #4caf50;
+            margin-left: 5px;
+            animation: blink 0.75s step-end infinite;
             vertical-align: middle;
         }
+
         @keyframes blink {
-            50% { opacity: 0; }
+            from, to { background-color: transparent }
+            50% { background-color: #4caf50; }
         }
     </style>
 </head>
 <body>
 
-<div class="code-container">
-    <div id="terminal"></div><span class="cursor" id="cursor"></span>
-</div>
+    <div class="terminal-box">
+        <!-- Tempat teks akan diketik otomatis -->
+        <div id="terminal"></div><span id="cursor" class="cursor"></span>
+    </div>
 
-<script>
-    const teksLengkap = [
-        { teks: "// Initializing Special Day System...\n", kelas: "comment" },
-        { teks: "const ", kelas: "keyword" }, { teks: "date = ", kelas: "" }, { teks: "\"September 08\";\n", kelas: "string" },
-        { teks: "const ", kelas: "keyword" }, { teks: "boyfriend = ", kelas: "" }, { teks: "\"Sayyid Maksiliyanus Arridwany\";\n\n", kelas: "string" },
-        { teks: "function ", kelas: "keyword" }, { teks: "celebrateBirthday() {\n", kelas: "function" },
-        { teks: "  if ", kelas: "keyword" }, { teks: "(date === ", kelas: "" }, { teks: "\"September 08\"", kelas: "string" }, { teks: ") {\n", kelas: "" },
-        { teks: "    return ", kelas: "keyword" }, { teks: "\"Happy Birthday, Sayyid! ❤️ May this new chapter bring you endless blessings, joy, and success in everything you do. Thank you for being the most wonderful part of my life. I love you so much! ✨\";\n", kelas: "string" },
-        { teks: "  }\n", kelas: "" },
-        { teks: "}\n\n", kelas: "" },
-        { teks: "// Executing script...\n", kelas: "comment" },
-        { teks: "console.log(celebrateBirthday());", kelas: "function" }
-    ];
+    <script>
+        // Data ucapan (Bisa ditambah atau diubah sesukamu)
+        const teksLengkap = [
+            { teks: "> Menghubungi server...\n", kelas: "teks-hijau" },
+            { teks: "> Mengirimkan doa terbaik...\n\n", kelas: "teks-hijau" },
+            { teks: "Happy Birthday, Sayyid Maksiliyanus Arridwan! ✨\n", kelas: "teks-putih" },
+            { teks: "Wishing you a year filled with love, laughter, and endless blessings. Semoga semua impianmu tercapai! 🎂🎉", kelas: "teks-kuning" }
+        ];
 
-    const terminal = document.getElementById('terminal');
-    let urutanTeks = 0;
-    let urutanKarakter = 0;
+        let urutanTeks = 0;
+        let urutanKarakter = 0;
+        const terminal = document.getElementById('terminal');
 
-    function ketikVideo() {
-        if (urutanTeks < teksLengkap.length) {
-            const bagianAktif = teksLengkap[urutanTeks];
-            
-            if (urutanKarakter === 0) {
-                const spanBaru = document.createElement('span');
-                spanBaru.className = bagianAktif.kelas;
-                spanBaru.id = 'span-' + urutanTeks;
-                terminal.appendChild(spanBaru);
-            }
-            
-            const spanTarget = document.getElementById('span-' + urutanTeks);
-            spanTarget.textContent += bagianAktif.teks.charAt(urutanKarakter);
-            
-            urutanKarakter++;
-            
-            if (urutanKarakter < bagianAktif.teks.length) {
-                setTimeout(ketikVideo, 30);
+        function ketikVideo() {
+            if (urutanTeks < teksLengkap.length) {
+                const bagianAktif = teksLengkap[urutanTeks];
+
+                // Membuat baris baru dengan warna kelas masing-masing
+                if (urutanKarakter === 0) {
+                    const spanBaru = document.createElement('span');
+                    spanBaru.className = bagianAktif.kelas;
+                    spanBaru.id = 'span-' + urutanTeks;
+                    terminal.appendChild(spanBaru);
+                }
+
+                const spanTarget = document.getElementById('span-' + urutanTeks);
+                spanTarget.textContent += bagianAktif.teks.charAt(urutanKarakter);
+
+                urutanKarakter++;
+
+                if (urutanKarakter < bagianAktif.teks.length) {
+                    setTimeout(ketikVideo, 40); // Kecepatan mengetik per huruf
+                } else {
+                    urutanKarakter = 0;
+                    urutanTeks++;
+                    setTimeout(ketikVideo, 500); // Jeda sebelum lanjut ke baris baru
+                }
             } else {
-                urutanKarakter = 0;
-                urutanTeks++;
-                setTimeout(ketikVideo, 150);
+                // Kursor berhenti berkedip/hilang setelah selesai mengetik
+                document.getElementById('cursor').style.animation = 'none';
+                document.getElementById('cursor').style.backgroundColor = 'transparent';
             }
-        } else {
-            document.getElementById('cursor').style.display = 'none';
         }
-    }
 
-    window.onload = () => {
-        setTimeout(ketikVideo, 1000);
-    };
-</script>
+        // Jalankan fungsi setelah 1 detik halaman dimuat
+        window.onload = () => {
+            setTimeout(ketikVideo, 1000);
+        };
+    </script>
 
 </body>
 </html>
-
